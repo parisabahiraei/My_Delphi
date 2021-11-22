@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
   TypecastU, ImFilterU, ImagePrU, Vcl.Imaging.jpeg, VclTee.TeeGDIPlus,
   VclTee.TeEngine, VclTee.Series, VclTee.TeeProcs, VclTee.Chart, Data.DB,
-  VclTee.TeeData;
+  VclTee.TeeData, Vcl.Imaging.pngimage;
 
 type
   TForm1 = class(TForm)
@@ -24,12 +24,17 @@ type
     Series1: TLineSeries;
     Series2: TLineSeries;
     Series3: TLineSeries;
-    ChartDataSet1: TChartDataSet;
-    SeriesDataSet1: TSeriesDataSet;
-    DataSource1: TDataSource;
+    BitBtn4: TBitBtn;
+    Chart2: TChart;
+    LineSeries1: TLineSeries;
+    LineSeries2: TLineSeries;
+    LineSeries3: TLineSeries;
+    BitBtn5: TBitBtn;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
+    procedure BitBtn4Click(Sender: TObject);
+    procedure BitBtn5Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,12 +48,13 @@ var
   R: byte;
   G: byte;
   B: byte;
+  I, j: integer;
+  GR: byte;
+  GRhist: array of integer;
 
-  Rhist: Ari; // pishnahad
-  Ghist: Ari;
-  Bhist: Ari;
-
-  // Import : TDataImport;
+  Rhist: array of integer;
+  Ghist: array of integer;
+  Bhist: array of integer;
 
 implementation
 
@@ -59,7 +65,6 @@ var
   I: integer;
 begin
   SetLength(result, width);
-  // https://stackoverflow.com/questions/6145935/how-to-return-array-from-a-delphi-function
 
   for I := 0 to width - 1 do
   begin
@@ -88,13 +93,17 @@ begin
 
   bit.Assign(Image1.Picture.Graphic);
   ImagePr1.Image2Mat(bit, matrix);
-  Rhist := zeros(256);
-  Ghist := zeros(256);
-  Bhist := zeros(256);
+  // Rhist := zeros(256);
+  // Ghist := zeros(256);
+  // Bhist := zeros(256);
+  SetLength(Rhist, 256);
+  SetLength(Ghist, 256);
+  SetLength(Bhist, 256);
 
   for I := 0 to matrix.Pixels - 1 do
     for j := 0 to matrix.Lines - 1 do
     begin
+
       R := matrix.Red[j, I];
       Rhist[R] := Rhist[R] + 1;
       G := matrix.Green[j, I];
@@ -103,26 +112,16 @@ begin
       Bhist[B] := Bhist[B] + 1;
 
     end;
-  bit.free;
+  // bit.free;
 
 end;
 
 procedure TForm1.BitBtn3Click(Sender: TObject);
 var
   I: integer;
-  // var
-  // bit: TBitmap;
+
 begin
 
-  // chart1
-  // bit := TBitmap.Create;
-  // bit.Assign(Image1.Picture.Graphic);
-  // ImagePr1.Mat2Image(matrix, bit);
-  // Image1.Picture.Bitmap.Assign(bit);
-
-  // SeriesDataSet1.Series := Series1;
-  // Series1.DataSources.I:=10;
-  // ChartDataSet1. /
   Chart1.Series[0].Clear;
   Chart1.Series[1].Clear;
   Chart1.Series[2].Clear;
@@ -134,7 +133,70 @@ begin
     Chart1.Series[2].Add(Bhist[I]);
   end;
 
-  // bit.free;
+end;
+
+procedure TForm1.BitBtn4Click(Sender: TObject);
+
+begin
+
+  bit := TBitmap.Create;
+  bit.Assign(Image1.Picture.Graphic);
+  ImagePr1.Image2Mat(bit, matrix);
+  ImagePr1.MakeBW(matrix);
+
+  SetLength(GRhist, 256);
+
+  for I := 0 to matrix.Pixels - 1 do
+    for j := 0 to matrix.Lines - 1 do
+    begin
+      GR := matrix.Picture[j, I];
+      GRhist[GR] := GRhist[GR] + 1;
+
+    end;
+  Chart1.Series[0].Clear;
+  for I := 0 to 255 do
+  begin
+    Chart1.Series[0].Add(GRhist[I]);
+
+  end;
+end;
+
+procedure TForm1.BitBtn5Click(Sender: TObject);
+var
+  p, l: Extended;
+begin
+  p := matrix.Pixels;
+  l := matrix.Lines;
+  for GR := 1 to 255 do
+  begin
+
+    GRhist[GR] := GRhist[GR - 1] + GRhist[GR];
+
+  end;
+  for GR := 0 to 255 do
+  begin
+
+    GRhist[GR] := trunc((GRhist[GR] * 255) / (p * l));
+
+  end;
+   Chart2.Series[0].Clear;
+    for I := 0 to 255 do
+  begin
+    Chart2.Series[0].Add(GRhist[I]);
+
+  end;
+
+  for I := 0 to matrix.Pixels - 1 do
+    for j := 0 to matrix.Lines - 1 do
+    begin
+      GR := matrix.Picture[j, I];
+      matrix.Picture[j, I]:= GRhist[GR];
+
+    end;
+  ImagePr1.Mat2Image(matrix,bit);
+  Image1.Picture.Bitmap.Assign(bit);
+
+  bit.free;
 end;
 
 end.

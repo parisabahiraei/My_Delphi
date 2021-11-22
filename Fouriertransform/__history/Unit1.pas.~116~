@@ -1,0 +1,180 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
+  TypecastU, ImFilterU, ImagePrU, Vcl.Imaging.jpeg, Vcl.Imaging.pngimage;
+
+type
+  TForm1 = class(TForm)
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    Image1: TImage;
+    OpenDialog1: TOpenDialog;
+    ImagePr1: TImagePr;
+    imageFilter1: TimageFilter;
+    TypeCast1: TTypeCast;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  matrix: TBitMat;
+  bit: TBitmap;
+  rmatrix2, imatrix2: Are2;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.BitBtn1Click(Sender: TObject);
+begin
+  if OpenDialog1.Execute() then
+  begin
+    Image1.Picture.LoadFromFile(OpenDialog1.FileName);
+  end;
+
+end;
+
+procedure TForm1.BitBtn2Click(Sender: TObject);
+var
+
+  x, v, y, N, k, u: Integer;
+  WR, WI: Are;
+  rsum, isum: Real;
+  rmatrix1, imatrix1: Are2;
+
+begin
+  bit := TBitmap.Create;
+  bit.Assign(Image1.Picture.Graphic);
+  ImagePr1.Image2Mat(bit, matrix);
+
+  ImagePr1.MakeBW(matrix);
+  matrix.Colr := False;
+
+  N := matrix.Lines;
+
+  setlength(WR, N);
+  setlength(WI, N);
+
+  setlength(rmatrix1, N, N);
+  setlength(imatrix1, N, N);
+
+  setlength(rmatrix2, N, N);
+  setlength(imatrix2, N, N);
+
+  for k := 0 to N - 1 do
+  begin
+    WR[k] := cos((-1 * 2 * pi * k) / N);
+    WI[k] := sin((-1 * 2 * pi * k) / N);
+  end;
+
+  for x := 0 to N - 1 do
+  begin
+    for v := 0 to N - 1 do
+    begin
+      rsum := 0;
+      isum := 0;
+      for y := 0 to N - 1 do
+      begin
+        k := (v * y) mod N;
+        rsum := rsum + (matrix.Picture[y, x] * WR[k]);
+        isum := isum + (matrix.Picture[y, x] * WI[k]);
+      end;
+      rmatrix1[x, v] := rsum;
+      imatrix1[x, v] := isum;
+    end;
+
+  end;
+
+  for v := 0 to N - 1 do
+  begin
+    for u := 0 to N - 1 do
+    begin
+      rsum := 0;
+      isum := 0;
+      for x := 0 to N - 1 do
+      begin
+        k := (x * u) mod N;
+        rsum := rsum + (rmatrix1[x, v] * WR[k] - imatrix1[x, v] * WI[k]);
+        isum := isum + (rmatrix1[x, v] * WI[k] + imatrix1[x, v] * WR[k]);
+      end;
+      rmatrix2[u, v] := rsum / N;
+      imatrix2[u, v] := isum / N;
+    end;
+
+  end;
+
+  bit.free;
+end;
+
+procedure TForm1.BitBtn3Click(Sender: TObject);
+var
+  N, v, u, i, j: Integer;
+  valuef, anglef: Are2;
+  minvaluef, maxvaluef: Real;
+  x: ArByte2;
+
+var
+  bi: TBitmap;
+  a1, a2, sqr1, sqr2: Real;
+begin
+  bi := TBitmap.Create;
+  bi.Assign(Image1.Picture.Graphic);
+
+  N := matrix.Lines;
+
+  setlength(valuef, N, N);
+  setlength(anglef, N, N);
+
+  for v := 0 to N - 1 do
+    for u := 0 to N - 1 do
+    begin
+      a1 := rmatrix2[u, v];
+      a2 := imatrix2[u, v];
+      sqr1 := sqr(a1);
+      sqr2 := sqr(a2);
+      valuef[v, u] := sqrt(sqr1 + sqr2);
+      anglef[v, u] := ArcTan((imatrix2[u, v]) / (rmatrix2[u, v]));
+    end;
+
+  minvaluef := valuef[0, 0];
+  maxvaluef := valuef[0, 0];
+
+  for u := 0 to N - 1 do
+    for v := 0 to N - 1 do
+    begin
+      if minvaluef > valuef[v, u] then
+        minvaluef := valuef[v, u];
+      if valuef[v, u] > maxvaluef then
+        maxvaluef := valuef[v, u];
+    end;
+
+  for u := 0 to N - 1 do
+    for v := 0 to N - 1 do
+    begin
+      matrix.Picture[v, u] :=
+        round(((valuef[v, u] - minvaluef)) / (maxvaluef - minvaluef) * 255);
+
+      // matrixx.Picture[v, u] := valuef[v, u];
+
+    end;
+
+  // matrixx := ImagePr1.Are2ToGrayBitmat(valuef);
+  ImagePr1.Mat2Image(matrix, bi);
+  Image1.Picture.Bitmap.Assign(bi);
+
+  bit.free;
+end;
+
+end.
