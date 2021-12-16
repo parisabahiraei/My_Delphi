@@ -1,0 +1,54 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ImFilterU, ImagePrU, TypecastU,
+  Vcl.Imaging.jpeg, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons;
+
+type
+  TForm1 = class(TForm)
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    Image1: TImage;
+    OpenDialog1: TOpenDialog;
+    TypeCast1: TTypeCast;
+    ImagePr1: TImagePr;
+    imageFilter1: TimageFilter;
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  matrix:TBitMat;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.BitBtn1Click(Sender: TObject);
+ var
+ bit: TBitmap;
+begin
+
+ if OpenDialog1.Execute() then
+  begin
+    Image1.Picture.LoadFromFile(OpenDialog1.FileName);
+    bit:= TBitmap.Create;
+
+    bit.Assign(image1.Picture.Graphic);
+
+
+
+
+    bit.free;
+  end;
+end;
+
+end.

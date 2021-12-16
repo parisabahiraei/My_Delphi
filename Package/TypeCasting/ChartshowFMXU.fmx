@@ -1,0 +1,49 @@
+object ChartFormFMX: TChartFormFMX
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 268
+  ClientWidth = 472
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Chart1: TChart
+    Foot.Font.StyleExt = {00040000000200000004000000}
+    Legend.Title.Font.StyleExt = {00070000000000000004000000}
+    Legend.Visible = False
+    SubFoot.Font.StyleExt = {00040000000200000004000000}
+    Title.Text.Strings = (
+      'TChart')
+    View3D = False
+    Zoom.Brush.Kind = None
+    Zoom.Pen.Fill.Color = claSilver
+    Align = Client
+    TabOrder = 0
+    Size.Width = 472.000000000000000000
+    Size.Height = 268.000000000000000000
+    Size.PlatformDefault = False
+    ColorPaletteIndex = 13
+    object Series1: TLineSeries
+      Brush.BackColor = x00FFFFFF
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 280
+    Top = 88
+    object MenuItem1: TMenuItem
+      Text = 'Close'
+      OnClick = MenuItem1Click
+    end
+    object MenuItem2: TMenuItem
+      Text = 'Copy To ClipBoard'
+      OnClick = MenuItem2Click
+    end
+  end
+end

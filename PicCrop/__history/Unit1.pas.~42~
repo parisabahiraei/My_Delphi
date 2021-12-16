@@ -1,0 +1,97 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
+  TypecastU, ImFilterU, ImagePrU, Vcl.Imaging.jpeg, VclTee.TeeGDIPlus,
+  VclTee.TeEngine, VclTee.Series, VclTee.TeeProcs, VclTee.Chart,
+  Vcl.Imaging.pngimage;
+
+type
+  TForm1 = class(TForm)
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    Image1: TImage;
+    OpenDialog1: TOpenDialog;
+    ImagePr1: TImagePr;
+    imageFilter1: TimageFilter;
+    TypeCast1: TTypeCast;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  matrix, matrixx: TBitMat;
+  bit: TBitmap;
+  graphRed, graphGreen, graphBlue: array of Double;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.BitBtn1Click(Sender: TObject);
+begin
+  if OpenDialog1.Execute() then
+  begin
+    Image1.Picture.LoadFromFile(OpenDialog1.FileName);
+  end;
+
+end;
+
+procedure TForm1.BitBtn2Click(Sender: TObject);
+var
+
+  I, j, m, n, x1, x2, x3, x4: Integer;
+
+begin
+  bit := TBitmap.Create;
+  bit.Assign(Image1.Picture.Graphic);
+  ImagePr1.Image2Mat(bit, matrix);
+
+  matrixx.Colr := False;
+  ImagePr1.MakeBW(matrix);
+  matrixx.Pixels := 608;
+  matrixx.Lines := 608;
+  setlength(matrixx.Picture, matrixx.Pixels, matrixx.Lines);
+  x1 := 219;
+  x2 := 826;
+  x3 := 26;
+  x4 := 633;
+
+  for I := x1 to x2 do
+    for j := x3 to x4 do
+    begin
+      matrixx.Picture[j - x3, I - x1] := matrix.Picture[j, I];
+    end;
+
+  // bit.free;
+end;
+
+procedure TForm1.BitBtn3Click(Sender: TObject);
+// var
+// bit: TBitmap;
+begin
+
+  // bit := TBitmap.Create;
+  // bit.Assign(Image1.Picture.Graphic);
+  ImagePr1.Mat2Image(matrixx, bit);
+  if OpenDialog1.Execute() then
+  begin
+    bit.SaveToFile(OpenDialog1.FileName);
+  end;
+  Image1.Picture.Bitmap.Assign(bit);
+
+  bit.free;
+end;
+
+end.

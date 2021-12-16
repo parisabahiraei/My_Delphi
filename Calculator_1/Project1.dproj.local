@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/08/03 19:23:30.000.129,=C:\Users\parisa\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/08/08 18:20:12.000.640,=C:\Users\parisa\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/08/08 21:24:09.000.325,C:\Users\parisa\Desktop\Parisa's Delphi\Calculator_1\Unit1.pas=C:\Users\parisa\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/08/08 21:24:09.000.325,C:\Users\parisa\Desktop\Parisa's Delphi\Calculator_1\Unit1.dfm=C:\Users\parisa\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2020/08/08 21:24:10.000.918,C:\Users\parisa\Desktop\Parisa's Delphi\Calculator_1\Project1.dproj=C:\Users\parisa\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

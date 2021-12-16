@@ -1,0 +1,68 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.Imaging.jpeg;
+
+type
+  TForm1 = class(TForm)
+    Image1: TImage;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    OpenDialog1: TOpenDialog;
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  R,G,B: array of array of Byte;
+
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.BitBtn1Click(Sender: TObject);
+var
+  bit:TBitmap;
+  I: Integer;
+  J: Integer;
+  cc:TColor;
+begin
+  if opendialog1.Execute() then
+  begin
+    image1.Picture.LoadFromFile(opendialog1.filename);
+    bit:=TBitmap.Create;
+    bit.Assign(image1.Picture.Graphic);
+
+    SetLength(R,bit.Height,bit.Width);
+    SetLength(g,bit.Height,bit.Width);
+    SetLength(b,bit.Height,bit.Width);
+
+    for I := 0 to bit.Width-1 do
+       for J := 0 to bit.Height-1 do
+       begin
+        cc:=bit.Canvas.Pixels[i,j];
+        R[j,i]:=cc;
+        G[j,i]:=trunc(cc/256);
+        B[j,i]:=trunc(cc/256/256);
+
+
+       end;
+
+
+
+    bit.free;
+  end;
+
+end;
+
+end.

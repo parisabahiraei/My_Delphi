@@ -75,6 +75,7 @@ end;
 
 procedure TForm1.BitBtn1Click(Sender: TObject);
 begin
+
   if OpenDialog1.Execute() then
   begin
     Image1.Picture.LoadFromFile(OpenDialog1.FileName);

@@ -1,0 +1,88 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, TypecastU, ImagePrU, Vcl.ExtCtrls,
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.Imaging.jpeg;
+
+type
+  TForm1 = class(TForm)
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    Image1: TImage;
+    OpenDialog1: TOpenDialog;
+    ImagePr1: TImagePr;
+    TypeCast1: TTypeCast;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  matrix1,matrix2,matrix3 : TBitMat;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.BitBtn1Click(Sender: TObject);
+var
+  bit: TBitmap;
+begin
+  if OpenDialog1.Execute() then
+  begin
+    Image1.Picture.LoadFromFile(OpenDialog1.FileName);
+  end;
+
+  bit := TBitmap.Create;
+  bit.Assign(Image1.Picture.Graphic);
+  ImagePr1.Image2Mat(bit, matrix1);
+
+  bit.Free;
+
+end;
+
+procedure TForm1.BitBtn2Click(Sender: TObject);
+var
+  I: Integer;
+  J: Integer;
+begin
+  for I := 0 to matrix1.Pixels - 1 do
+    for J := 0 to matrix1.lines - 1 do
+    begin
+      matrix1.Red[J, I] := 0;
+      matrix2.Green[J, I] := 0;
+      matrix3.Blue[J, I] := 0;
+    end;
+
+end;
+
+procedure TForm1.BitBtn3Click(Sender: TObject);
+var
+  bit: TBitmap;
+begin
+  bit := TBitmap.Create;
+  bit.Assign(Image1.Picture.Graphic);
+  ImagePr1.Mat2Image(matrix1, bit);
+  Image2.Picture.Bitmap.Assign(bit);
+  ImagePr1.Mat2Image(matrix2, bit);
+  Image3.Picture.Bitmap.Assign(bit);
+  ImagePr1.Mat2Image(matrix3, bit);
+  Image4.Picture.Bitmap.Assign(bit);
+  bit.Free;
+
+end;
+
+end.

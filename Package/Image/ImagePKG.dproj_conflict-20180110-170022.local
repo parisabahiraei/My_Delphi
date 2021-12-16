@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899/12/30 00:00:00.000.320,=TypeCastPKG.dcp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.282,=vcl.dcp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.434,=rtl.dcp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.307,=Tee.dcp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.227,=fmx.dcp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.042,G:\Soltanizadeh\My_DelphiX\Pakage\Image\ImagePKG.dproj=C:\Users\Administrator\Documents\RAD Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.034,=rtl.dcp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.294,=vclimg.dcp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.849,=G:\Soltanizadeh\My_DelphiX\Pakage\Image\ImagePrU.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.270,=TypeCastPKG3.dcp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.899,=G:\Soltanizadeh\My_DelphiX\Pakage\Image\ImFilterU.pas</Transaction>
+    <Transaction>2013/05/12 16:39:48.000.887,=TypeCastPKG4.dcp</Transaction>
+    <Transaction>2013/05/12 16:41:16.000.621,=TypeCastPKG4.dcp</Transaction>
+    <Transaction>2013/10/25 19:33:56.000.311,=TypeCastPKG4.dcp</Transaction>
+    <Transaction>2014/06/02 08:35:43.000.209,=TypeCastPKG4.dcp</Transaction>
+    <Transaction>2014/06/02 09:41:35.000.649,=TypeCastPKG4.dcp</Transaction>
+    <Transaction>2014/06/02 09:41:35.000.599,=vclimg.dcp</Transaction>
+    <Transaction>2014/06/02 09:41:35.000.551,=rtl.dcp</Transaction>
+    <Transaction>2014/06/02 09:41:35.000.625,=fmx.dcp</Transaction>
+    <Transaction>2014/06/02 09:41:35.000.575,=vcl.dcp</Transaction>
+    <Transaction>2014/06/02 09:56:51.000.060,=TypeCastPKG5.dcp</Transaction>
+  </Transactions>
+</BorlandProject>

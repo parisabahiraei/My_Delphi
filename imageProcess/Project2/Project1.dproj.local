@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/03/25 17:11:44.000.648,=C:\Users\parisa\Desktop\Parisa's Delphi\DefaultProject\Unit1.pas</Transaction>
+    <Transaction>2021/03/25 17:45:16.000.487,=C:\My_Delphi\DefaultProject\Unit1.pas</Transaction>
+    <Transaction>2021/03/25 17:45:38.000.139,=C:\My_Delphi\DefaultProject\Unit1.pas</Transaction>
+    <Transaction>2021/04/20 17:16:55.237,=C:\My_Delphi\DefaultProject\Unit1.pas</Transaction>
+    <Transaction>2021/04/20 17:30:50.849,C:\My_Delphi\imageProcess\Project2\Unit1.pas=C:\My_Delphi\DefaultProject\Unit1.pas</Transaction>
+    <Transaction>2021/04/20 17:30:50.849,C:\My_Delphi\imageProcess\Project2\Unit1.dfm=C:\My_Delphi\DefaultProject\Unit1.dfm</Transaction>
+    <Transaction>2021/04/20 17:30:52.043,C:\My_Delphi\imageProcess\Project2\Project1.dproj=C:\My_Delphi\DefaultProject\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -7,7 +7,8 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
   TypecastU, ImFilterU, ImagePrU, Vcl.Imaging.jpeg, VclTee.TeeGDIPlus,
-  VclTee.TeEngine, VclTee.Series, VclTee.TeeProcs, VclTee.Chart;
+  VclTee.TeEngine, VclTee.Series, VclTee.TeeProcs, VclTee.Chart,
+  Vcl.Imaging.pngimage;
 
 type
   TForm1 = class(TForm)
